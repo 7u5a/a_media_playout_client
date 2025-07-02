@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>A CasparCG Media Playout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>A CasparCG Media Playout</h1>
+    <div>
+        <button id="statusButton" class="disconnected">Disconnected</button>
+    </div>
+
+    <div>
+        <p>Afspiller: <span id="currentClip">intet</span></p>
+        <p>⏱ Tid: <span id="duration">00:00 / 00:00</span></p>
+        <div id="timelineContainer">
+            <div id="timelineProgress"></div>
+        </div>
+    </div>
+
+    <div>
+
+    </div>
+
+    <div>
+        <input type="text" id="filename" placeholder="Indtast filnavn fx. intro.mp4" />
+        <button><img src="/icons/previous.png" alt="Next" width="14" height="14" /></button>
+        <button onclick="playClip()"><img src="/icons/play.png" alt="Play" width="14" height="14" /></button>
+        <button onclick="controlClip('pause')"><img src="/icons/pause.png" alt="Pause" width="14" height="14" /></button>
+        <button onclick="controlClip('resume')"><img src="/icons/resume.png" alt="Resume" width="14" height="14" /></button>
+        <button onclick="controlClip('stop')"><img src="/icons/stop.png" alt="Stop" width="14" height="14" /></button>
+        <button><img src="/icons/previous.png" alt="Next" width="14" height="14" class="nextbtn" /></button>
+    </div>
+
+    <div id="status"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
