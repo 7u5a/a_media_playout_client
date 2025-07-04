@@ -16,6 +16,8 @@ let clipDuration = 0;
 let currentTime = 0;
 let playing = false;
 let timelineInterval = null;
+let currentFile = "";
+let isPaused = false;
 
 ws.onmessage = function (event) {
   const msg = JSON.parse(event.data);
@@ -40,10 +42,30 @@ ws.onmessage = function (event) {
   // 🎬 OSC: Klipnavn
   if (msg.address.endsWith("/file/path")) {
     const filePath = msg.args[0];
-    document.getElementById("currentClip").innerText = filePath.split("/").pop();
-    statusEl.innerText = `▶️ Afspiller: ${filePath}`;
+    currentFile = filePath.split("/").pop();
+    document.getElementById("currentClip").innerText = currentFile;
+    updateStatusText();
+  }
+
+  if (msg.address.endsWith("/paused")) {
+    isPaused = msg.args[0] === true;
+    if (isPaused) {
+      updateStatusText();
+    }
   }
 };
+
+// 📝 Funktion til at opdatere status
+function updateStatusText() {
+  const statusEl = document.getElementById("status");
+  if (currentFile === "") {
+    statusEl.innerText = "⏹ Ingen klip";
+  } else if (isPaused) {
+    statusEl.innerText = `⏸ Pauset: ${currentFile}`;
+  } else {
+    statusEl.innerText = `▶️ Afspiller: ${currentFile}`;
+  }
+}
 
 // ▶️ Afspil klip
 function playClip() {
@@ -52,7 +74,7 @@ function playClip() {
   fetch(`/api/play?file=${encodeURIComponent(filename)}`)
     .then(res => res.text())
     .then(msg => {
-      document.getElementById("status").innerText = msg;
+      //document.getElementById("status").innerText = msg;
     });
 }
 
@@ -63,21 +85,27 @@ function controlClip(action) {
   fetch(`/api/${action}`)
     .then(res => res.text())
     .then(msg => {
-      document.getElementById("status").innerText = msg;
+      //document.getElementById("status").innerText = msg;
 
       if (action === "stop") {
-        clipDuration = 0;
-        currentTime = 0;
-        updateTimeline();
-        stopTimeline();
-        playing = false;
-        document.getElementById("currentClip").innerText = "intet";
-      } else if (action === "pause") {
-        playing = false;
-        stopTimeline();
-      } else if (action === "resume") {
-        playing = true;
-        startTimeline();
+         setTimeout(() => {
+          clipDuration = 0;
+          currentTime = 0;
+          updateTimeline();
+          stopTimeline();
+          playing = false;
+          document.getElementById("currentClip").innerText = "intet";
+          document.getElementById("status").innerText = "⏹ Ingen klip";
+        }, 200); // fx 200 ms pause
+      } else {
+        document.getElementById("status").innerText = msg;
+        if (action === "pause") {
+          playing = false;
+          stopTimeline();
+        } else if (action === "resume") {
+          playing = true;
+          startTimeline();
+        }
       }
     })
     .catch(err => {
