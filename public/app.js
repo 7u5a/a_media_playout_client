@@ -21,8 +21,6 @@ let isPaused = false;
 
 ws.onmessage = function (event) {
   const msg = JSON.parse(event.data);
-  //console.log("📥 OSC modtaget:", msg);
-  const statusEl = document.getElementById("status");
 
   // ⏱ OSC: Tid og varighed
   if (msg.address.endsWith("/file/time") && msg.args.length === 2) {
@@ -49,13 +47,11 @@ ws.onmessage = function (event) {
 
   if (msg.address.endsWith("/paused")) {
     isPaused = msg.args[0] === true;
-    if (isPaused) {
-      updateStatusText();
-    }
+    updateStatusText();
   }
 };
 
-// 📝 Funktion til at opdatere status
+// 📝 Opdater status tekst
 function updateStatusText() {
   const statusEl = document.getElementById("status");
   if (currentFile === "") {
@@ -67,14 +63,25 @@ function updateStatusText() {
   }
 }
 
-// ▶️ Afspil klip
+// ▶️ Afspil valgt klip
 function playClip() {
-  const filename = document.getElementById("filename").value;
+  const filename = document.getElementById("filename").value.trim();
+  if (!filename) {
+    alert("Vælg venligst et klip først!");
+    return;
+  }
 
   fetch(`/api/play?file=${encodeURIComponent(filename)}`)
     .then(res => res.text())
     .then(msg => {
-      //document.getElementById("status").innerText = msg;
+      document.getElementById("status").innerText = `▶️ Afspiller: ${filename}`;
+      document.getElementById("currentClip").innerText = filename;
+      playing = true;
+      //startTimeline();  // Hvis du har en funktion til at starte tidslinje-opdatering
+    })
+    .catch(err => {
+      document.getElementById("status").innerText = `Fejl: ${err}`;
+      console.error(err);
     });
 }
 
@@ -85,18 +92,17 @@ function controlClip(action) {
   fetch(`/api/${action}`)
     .then(res => res.text())
     .then(msg => {
-      //document.getElementById("status").innerText = msg;
-
       if (action === "stop") {
-         setTimeout(() => {
+        setTimeout(() => {
           clipDuration = 0;
           currentTime = 0;
           updateTimeline();
           stopTimeline();
           playing = false;
+          currentFile = "";
           document.getElementById("currentClip").innerText = "intet";
           document.getElementById("status").innerText = "⏹ Ingen klip";
-        }, 200); // fx 200 ms pause
+        }, 200);
       } else {
         document.getElementById("status").innerText = msg;
         if (action === "pause") {
@@ -113,7 +119,7 @@ function controlClip(action) {
     });
 }
 
-// 🔄 Vis forbindelsesstatus til server
+// 🔄 Statusindikator
 async function updateStatus() {
   try {
     const res = await fetch('/api/status');
@@ -140,24 +146,59 @@ async function updateStatus() {
 updateStatus();
 setInterval(updateStatus, 5000);
 
-// ⏱ Tidsformat
 function formatTime(seconds) {
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
   return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 }
 
-// 🟦 Tidslinje (progress bar)
 function updateTimeline() {
   const percent = clipDuration > 0 ? (currentTime / clipDuration) * 100 : 0;
   document.getElementById("timelineProgress").style.width = `${Math.min(percent, 100)}%`;
   document.getElementById("duration").innerText = `${formatTime(currentTime)} / ${formatTime(clipDuration)}`;
 }
 
-// ⏹ Stop tidslinje-opdatering (hvis der bruges en animation)
 function stopTimeline() {
   if (timelineInterval) {
     clearInterval(timelineInterval);
     timelineInterval = null;
   }
 }
+
+// Hent medieliste og lav klikbar liste
+function fetchMediaList() {
+  fetch("/api/media")
+    .then(res => res.json())
+    .then(data => {
+      const medialistDiv = document.getElementById("medialist");
+      medialistDiv.innerHTML = ""; // Ryd gammel liste
+
+      if (!data.files || data.files.length === 0) {
+        medialistDiv.innerText = "Ingen mediefiler fundet.";
+        return;
+      }
+
+      const list = document.createElement("ul");
+      data.files.forEach(file => {
+        const item = document.createElement("li");
+        item.textContent = file;
+        item.style.cursor = "pointer";
+        item.onclick = () => {
+          document.getElementById("filename").value = file;
+          document.getElementById("currentClip").innerText = `Valgt klip: ${file}`;
+          document.getElementById("status").innerText = "⏹ Klar";
+          playing = false; // Stopper automatisk play
+        };
+        list.appendChild(item);
+      });
+
+      medialistDiv.appendChild(list);
+    })
+    .catch(err => {
+      document.getElementById("medialist").innerText = "Fejl ved hentning af mediafiler.";
+      console.error(err);
+    });
+}
+
+// Kør ved opstart
+fetchMediaList();

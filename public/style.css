@@ -63,3 +63,30 @@ button {
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
 }
+
+#medialist ul {
+  list-style-type: none;  /* Fjern standard punkttegn */
+  padding: 0;
+  margin: 0;
+  max-width: 400px;       /* Begræns bredde */
+  font-family: Arial, sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+}
+
+#medialist ul li {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#medialist ul li:last-child {
+  border-bottom: none;  /* Fjern bundlinje på sidste element */
+}
+
+#medialist ul li:hover {
+  background-color: #007bff;
+  color: white;
+}

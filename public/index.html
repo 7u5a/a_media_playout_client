@@ -24,7 +24,7 @@
     </div>
 
     <div>
-        <input type="text" id="filename" placeholder="Indtast filnavn fx. intro.mp4" />
+        <input type="text" id="filename" readonly placeholder="Indtast filnavn fx. intro.mp4" />
         <button><img src="/icons/previous.png" alt="Next" width="14" height="14" /></button>
         <button onclick="playClip()"><img src="/icons/play.png" alt="Play" width="14" height="14" /></button>
         <button onclick="controlClip('pause')"><img src="/icons/pause.png" alt="Pause" width="14" height="14" /></button>
@@ -34,6 +34,12 @@
     </div>
 
     <div id="status"></div>
+
+    <div>
+        <h2>Vælg et videoklip</h2>
+        <div id="medialist">Henter media...</div>
+    </div>
+
 
     <script src="app.js"></script>
 </body>
