@@ -13,7 +13,10 @@
   "license": "ISC",
   "bin": "app.js",
   "pkg": {
-    "targets": ["node18-win-x64", "node18-macos-x64"],
+    "targets": [
+      "node18-win-x64",
+      "node18-macos-x64"
+    ],
     "outputPath": "build",
     "assets": [
       "media/**/*",
@@ -27,5 +30,8 @@
     "net": "^1.0.2",
     "osc": "^2.4.5",
     "ws": "^8.18.2"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
   }
 }
