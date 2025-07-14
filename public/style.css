@@ -1,10 +1,75 @@
 body {
   font-family: sans-serif;
   padding: 2rem;
-  background: #f3f3f3;
+  background: #333;
+  color: #fff;
 }
 
+/* DivTable */
+.divTable {
+  display: table;
+  width: 100%;
+  border-collapse: collapse; /* Giver mere konsistent kantvisning */
+}
+
+.divTableRow {
+  display: table-row;
+}
+
+.divTableCell#header {
+  display: flex;
+}
+
+.divTableCell#header #divStatus {
+  background-color: #181818;
+  border: 1px solid #000;
+  border-radius: 3px;
+  display: grid;
+  margin: 0 -6px;
+  padding: 10px 25px;
+  width: 210px;
+  box-shadow:
+    inset -3px -3px 6px rgba(105, 105, 105, 0.4),
+    inset 3px 3px 6px rgba(205, 205, 205, 0.4);
+  /* cursor: pointer;
+  transition: all 0.2s ease; */
+}
+
+
+.divTableCell,
+.divTableHead {
+  display: table-cell;
+  border: 1px solid #999;
+  padding: 3px 10px;
+}
+
+.divTableHeading,
+.divTableFoot {
+  display: table-header-group;
+  background-color: #EEE;
+  font-weight: bold;
+}
+
+.divTableFoot {
+  display: table-footer-group;
+}
+
+.divTableBody {
+  display: table-row-group;
+}
+
+.medialistCell {
+  width: 250px;
+}
+
+.statusCell {
+  height: 50px;
+}
+
+
+/* Timeline */
 #timelineContainer {
+  margin: 0 0 10px;
   width: 100%;
   height: 10px;
   background: #ccc;
@@ -30,24 +95,50 @@ input, button {
 }
 
 #statusButton {
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      cursor: default;
-      transition: background-color 0.3s ease;
-    }
+  margin: 0 0 6px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: default;
+  transition: background-color 0.3s ease;
+}
 
-    .connected {
-      background-color: #14cd14; /* grøn */
-      box-shadow: inset 0px 0px 2px 2px #1faf1f;
-    }
+.connected {
+  background-color: #14cd14; /* grøn */
+  box-shadow: inset 0px 0px 2px 2px #1faf1f;
+}
 
-    .disconnected {
-      background-color: #cd1515; /* rød */
-      box-shadow: inset 0px 0px 2px 2px #a41111;
-    }
+.disconnected {
+  background-color: #cd1515; /* rød */
+  box-shadow: inset 0px 0px 2px 2px #a41111;
+}
+
+#settingsButton {
+  margin: 0 0 6px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: default;
+  transition: background-color 0.3s ease;
+  background-color: #111; /* grøn */
+  box-shadow: inset 0px 0px 2px 2px #444;
+}
+
+#reloadButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: default;
+  transition: background-color 0.3s ease;
+  background-color: #330000; /* grøn */
+  box-shadow: inset 0px 0px 2px 2px #444;
+}
 
 button {
     border: 1px solid;
@@ -70,9 +161,7 @@ button {
   margin: 0;
   max-width: 400px;       /* Begræns bredde */
   font-family: Arial, sans-serif;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #f9f9f9;
+  font-size: 12px;
 }
 
 #medialist ul li {
