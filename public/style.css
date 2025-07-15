@@ -141,18 +141,28 @@ input, button {
 }
 
 button {
-    border: 1px solid;
-    border-color: #202020 #1a1a1a #111;
-    border-radius: 3px;
-    background-color: #eee;
-    box-shadow: inset 0px 0px 2px 2px #bcbcbc;
-    margin: 0;
-    padding: 14px 14px 9px 14px;
+  border: 1px solid;
+  border-color: #202020 #1a1a1a #111;
+  border-radius: 3px;
+  background-color: #eee;
+  box-shadow: inset 0px 0px 2px 2px #bbb;
+  margin: 0;
+  padding: 14px 14px 9px 14px;
 }
 
-.nextbtn {
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
+.playBtn {
+  background-color: rgb(0, 100, 125);
+  box-shadow: inset 0px 0px 2px 2px rgb(0, 50, 75);
+}
+
+.stopBtn {
+  background-color: rgb(125, 0, 0);
+  box-shadow: inset 0px 0px 2px 2px rgb(75, 0, 0);
+}
+
+.nextBtn {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 #medialist ul {

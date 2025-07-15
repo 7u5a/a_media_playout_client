@@ -100,7 +100,8 @@ function controlClip(action) {
           stopTimeline();
           playing = false;
           currentFile = "";
-          document.getElementById("currentClip").innerText = "intet";
+          //document.getElementById("currentClip").innerText = "intet";
+          document.getElementById("currentClip").innerText = "\u00A0";
           document.getElementById("status").innerText = "⏹ Ingen klip";
         }, 200);
       } else {
@@ -146,10 +147,15 @@ async function updateStatus() {
 updateStatus();
 setInterval(updateStatus, 5000);
 
-function formatTime(seconds) {
-  const mins = Math.floor(seconds / 60);
+function formatTime(seconds, frameRate = 25) {
+  //const mins = Math.floor(seconds / 60);
+  //const secs = Math.floor(seconds % 60);
+  //return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+  const hours = Math.floor(seconds / 3600);
+  const mins = Math.floor((seconds % 3600) / 60);
   const secs = Math.floor(seconds % 60);
-  return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+  const frames = Math.floor((seconds % 1) * frameRate)
+  return `${String(hours).padStart(2, "0")}:${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}:${String(frames).padStart(2, "0")}`
 }
 
 function updateTimeline() {
@@ -185,7 +191,8 @@ function fetchMediaList() {
         item.style.cursor = "pointer";
         item.onclick = () => {
           document.getElementById("filename").value = file;
-          document.getElementById("currentClip").innerText = `Valgt klip: ${file}`;
+          // document.getElementById("currentClip").innerText = `Valgt klip: ${file}`;
+          document.getElementById("currentClip").innerText = `${file}`;
           document.getElementById("status").innerText = "⏹ Klar";
           playing = false; // Stopper automatisk play
         };

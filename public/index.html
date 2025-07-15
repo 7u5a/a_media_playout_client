@@ -29,20 +29,22 @@
                     <div id="medialist">Henter media...</div>
                 </div>
                 <div class="divTableCell">
-                    <p>Afspiller: <span id="currentClip">intet</span></p>
-                    <p>⏱ Tid: <span id="duration">00:00 / 00:00</span></p>
+                    <!-- <p>Afspiller: <span id="currentClip">intet</span></p> -->
+                     <p><span id="currentClip">&nbsp;</span></p>
+                    <!-- <p>⏱ Tid: <span id="duration">00:00 / 00:00</span></p> -->
+                    <p><span id="duration">00:00:00:00 / 00:00:00:00</span></p>
                     <div id="timelineContainer">
                         <div id="timelineProgress"></div>
                     </div>
 
                     <div>
                         <!-- <input type="text" id="filename" readonly placeholder="Indtast filnavn fx. intro.mp4" /> -->
-                        <button><img src="/icons/previous.png" alt="Next" width="14" height="14" /></button>
-                        <button onclick="playClip()"><img src="/icons/play.png" alt="Play" width="14" height="14" /></button>
-                        <button onclick="controlClip('pause')"><img src="/icons/pause.png" alt="Pause" width="14" height="14" /></button>
-                        <button onclick="controlClip('resume')"><img src="/icons/resume.png" alt="Resume" width="14" height="14" /></button>
-                        <button onclick="controlClip('stop')"><img src="/icons/stop.png" alt="Stop" width="14" height="14" /></button>
-                        <button><img src="/icons/previous.png" alt="Next" width="14" height="14" class="nextbtn" /></button>
+                        <button><img src="/icons/previous.png" alt="Next" width="16" height="16" /></button>
+                        <button class="playBtn" onclick="playClip()"><img src="/icons/play.png" alt="Play" width="16" height="16" /></button>
+                        <button onclick="controlClip('pause')"><img src="/icons/pause.png" alt="Pause" width="16" height="16" /></button>
+                        <button onclick="controlClip('resume')"><img src="/icons/resume.png" alt="Resume" width="16" height="16" /></button>
+                        <button  class="stopBtn" onclick="controlClip('stop')"><img src="/icons/stop.png" alt="Stop" width="16" height="16" /></button>
+                        <button><img src="/icons/previous.png" alt="Next" width="16" height="16" class="nextbtn" /></button>
                     </div>
                 </div>
             </div>
@@ -69,12 +71,12 @@
 
     <div>
         <input type="text" id="filename" readonly placeholder="Indtast filnavn fx. intro.mp4" />
-        <button><img src="/icons/previous.png" alt="Next" width="14" height="14" /></button>
-        <button onclick="playClip()"><img src="/icons/play.png" alt="Play" width="14" height="14" /></button>
-        <button onclick="controlClip('pause')"><img src="/icons/pause.png" alt="Pause" width="14" height="14" /></button>
-        <button onclick="controlClip('resume')"><img src="/icons/resume.png" alt="Resume" width="14" height="14" /></button>
-        <button onclick="controlClip('stop')"><img src="/icons/stop.png" alt="Stop" width="14" height="14" /></button>
-        <button><img src="/icons/previous.png" alt="Next" width="14" height="14" class="nextbtn" /></button>
+        <button><img src="/icons/previous.png" alt="Next" width="16" height="16" /></button>
+        <button onclick="playClip()"><img src="/icons/play.png" alt="Play" width="16" height="16" /></button>
+        <button onclick="controlClip('pause')"><img src="/icons/pause.png" alt="Pause" width="16" height="16" /></button>
+        <button onclick="controlClip('resume')"><img src="/icons/resume.png" alt="Resume" width="16" height="16" /></button>
+        <button  class="stopBtn" onclick="controlClip('stop')"><img src="/icons/stop.png" alt="Stop" width="16" height="16" /></button>
+        <button><img src="/icons/previous.png" alt="Next" width="16" height="16" class="nextBtn" /></button>
     </div>
 
     <div id="status"></div>
